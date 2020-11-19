@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 jumbotron">
+            <div class="form col " [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="fName">First Name</label>
+                    <input type="text" class="form-control" formControlName="fname" placeholder="Enter First Name">
+                    <small class="text-danger"
+                        *ngIf="!contactForm.get('fname').valid && contactForm.get('fname').touched">Enter Valid
+                        Name</small>
+                </div>
+                <div class="form-group">
+                    <label for="lName">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lname" placeholder="Enter Last Name">
+                    <small class="text-danger"
+                        *ngIf="!contactForm.get('lname').valid && contactForm.get('lname').touched">Enter Valid
+                        Name</small>
+
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control " formControlName="age" placeholder="Enter Your Age">
+                    <small class="text-danger"
+                        *ngIf="!contactForm.get('age').valid && contactForm.get('age').touched">Enter
+                        Valid Age</small>
+
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="number" class="form-control" formControlName="mobile"
+                        placeholder="Enter Your Mobile Number">
+                    <small class="text-danger"
+                        *ngIf="!contactForm.get('mobile').valid && contactForm.get('mobile').touched">Enter Valid
+                        Mobile
+                        Number</small>
+
+                </div>
+                <div class="form-group" formArrayName="skills">
+                    <label for="skills"> Skills</label>
+                    <ng-container *ngFor="let skill of contactForm.get('skills')['controls'], index as i">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="text" class="form-control mt-2" placeholder="Enter Your Skill"
+                                    formControlName="{{i}}">
+
+                            </div>
+                            <div class="col-md-3">
+                                <i class="fa fa-trash text-danger mt-3" aria-hidden="true"
+                                    (click)="removeSkills(i)"></i>
+                            </div>
+                        </div>
+
+                    </ng-container><br>
+
+                    <button class="btn btn-outline-primary mt-2 btn-sm" (click)="addSkills()">+ Add Skills</button>
+
+
+                </div>
+                <button
+                    [disabled]="!contactForm.get('fname').valid || !contactForm.get('lname').valid || !contactForm.get('age').valid || !contactForm.get('mobile').valid"
+                    class="btn btn-success btn-lg" (click)="onSubmit()">Submit</button>
+            </div>
+
+        </div>
+        <div class="col-md-8 jumbotron">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Sr.No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Skills</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contact of contacts,index as i">
+                        <td>{{i+1}}.</td>
+                        <td>{{contact.fname}}&nbsp;{{contact.lname}}</td>
+                        <td>{{contact.age}}</td>
+                        <td>{{contact.mobile}}</td>
+                        <td>{{contact.skills}}</td>
+                        <td><i class="fa fa-trash text-danger" aria-hidden="true" (click)="removeData(contact._id)"></i>
+                        </td>
+                        <td><i class="fa fa-edit text-success" aria-hidden="true" (click)="editData(contact,contact._id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
