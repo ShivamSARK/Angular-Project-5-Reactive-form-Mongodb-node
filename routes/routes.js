@@ -57,7 +57,7 @@ router.put('/contacts/:id', jsonParser, function (req, res) {
 });
 
 
-//Search data in DB
+//Sorting data in DB
 router.get('/contacts/:name', function (req, res) {
     var regex = new RegExp(req.params.fname, 'i');
     Contact.find().sort({ fname: 1 }).then((result) => {

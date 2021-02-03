@@ -57,7 +57,8 @@ export class ContactComponent implements OnInit {
         const data = JSON.stringify(response)
         this.contacts.push(JSON.parse(data));
       })
-      this.contactForm.reset();    }
+      this.contactForm.reset();
+    }
     //Updating Data
     else {
       const updatedContact = {
@@ -67,6 +68,7 @@ export class ContactComponent implements OnInit {
         mobile: this.contactForm.get('mobile').value,
         skills: this.contactForm.get('skills').value
       }
+     
       this._contactservice.updateContact(updatedContact, this.newId).subscribe(res => {
 
       })
